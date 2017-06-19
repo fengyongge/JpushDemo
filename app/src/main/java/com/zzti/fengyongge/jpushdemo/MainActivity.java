@@ -1,9 +1,12 @@
 package com.zzti.fengyongge.jpushdemo;
 
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 import com.zzti.fengyongge.jpushdemo.util.ExampleUtil;
@@ -11,6 +14,9 @@ import com.zzti.fengyongge.jpushdemo.util.ExampleUtil;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
@@ -22,17 +28,16 @@ public class MainActivity extends AppCompatActivity {
     private final Handler mHandler = new Handler() {
         @SuppressWarnings("unchecked")
         @Override
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
             // final JSONObject object = (JSONObject) msg.obj;
             switch (msg.what) {
                 case MSG_SET_ALIAS:
                     try {
-                        Log.i("fyg","添加别名开始");
-                        JPushInterface.setAliasAndTags(getApplicationContext(),(String) msg.obj, null, mAliasCallback);
+                        Log.i("fyg", "添加别名开始");
+                        JPushInterface.setAliasAndTags(getApplicationContext(), (String) msg.obj, null, mAliasCallback);
                     } catch (Exception e) {
                     }
-//                    JPushInterface.setAliasAndTags(getApplicationContext(),(String) msg.obj, null, mAliasCallback);
                     break;
                 case MSG_SET_TAGS:
                     try {
@@ -48,24 +53,56 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+    @BindView(R.id.tvInject)
+    TextView tvInject;
+    @BindView(R.id.tvExit)
+    TextView tvExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
 
     }
 
-    public void rigist(){
-        String getRegistrationID= JPushInterface.getRegistrationID(getApplicationContext());
-        setAlias("");
-        setTag("");
+
+    @OnClick({R.id.tvInject, R.id.tvExit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tvInject:
+                setAlias("666");
+                break;
+            case R.id.tvExit:
+                setAlias("");
+                setTag1();
+                break;
+        }
     }
 
 
     private void setAlias(String alias) {
         mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, alias));
+    }
+
+    private void setTag1() {
+//        tag = tag.replace("[", "");
+//        tag = tag.replace("]", "");
+//        tag = tag.replace("\"", "");
+//        String[] sArray = tag.split(",");
+        Set<String> tagSet = new LinkedHashSet<String>();
+//        for (String sTagItme : sArray) {
+//            // if (!ExampleUtil.isValidTagAndAlias(sTagItme)) {
+//            // Toast.makeText(ExifUtils.this,"tag不合法",
+//            // Toast.LENGTH_SHORT).show();
+//            // return;
+//            // }
+////            Logger.i("sTagItme:"+sTagItme);
+//            tagSet.add(sTagItme);
+//        }
+        // 调用JPush API设置Tag
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_TAGS, tagSet));
     }
 
     private void setTag(String tag) {
@@ -86,6 +123,15 @@ public class MainActivity extends AppCompatActivity {
         // 调用JPush API设置Tag
         mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_TAGS, tagSet));
     }
+
+
+
+
+
+
+
+
+
 
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
 
@@ -119,4 +165,5 @@ public class MainActivity extends AppCompatActivity {
             // ExampleUtil.showToast(logs, getApplicationContext());
         }
     };
+
 }
