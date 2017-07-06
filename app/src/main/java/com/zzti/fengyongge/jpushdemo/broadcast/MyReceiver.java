@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-
 import com.zzti.fengyongge.jpushdemo.MessageActivity;
+import com.zzti.fengyongge.jpushdemo.util.PreferencesUtils;
 import com.zzti.fengyongge.jpushdemo.util.StringUtils;
 
 import org.json.JSONException;
@@ -54,14 +54,22 @@ public class MyReceiver extends BroadcastReceiver {
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-//            Logger.i("极光推送："+bundle.getString(JPushInterface.EXTRA_EXTRA));
 
-            JPushInterface.clearNotificationById(context,bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID));//清除notification
-            Intent intent1 = new Intent(context, MessageActivity.class);
-            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-            intent1.putExtra("isNew",true);
-            context.startActivity(intent1);
+            try {
+                boolean isLogin =  PreferencesUtils.getBoolean(context,"login",false);
+                if(true){
+                    JPushInterface.clearNotificationById(context,bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID));//清除notification
+                    Intent intent1 = new Intent(context, MessageActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );//context启动activity时需要创建堆栈
+                    context.startActivity(intent1);
+                }else{
+//                    Intent intent2 = new Intent(context, LoginActivity.class);
+//                    intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
+//                    context.startActivity(intent2);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
 ////			{"id": 2,"type_id":1,"intro":"234","title":"小胡苏宁","source_id":"2016061418333064109","context": "3"}
@@ -138,7 +146,6 @@ public class MyReceiver extends BroadcastReceiver {
     private void processCustomMessage(Context context, Bundle bundle) {
 
         if (MessageActivity.isForeground) {
-
             String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
             String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
             Intent msgIntent = new Intent(MessageActivity.MESSAGE_RECEIVED_ACTION);
@@ -157,7 +164,6 @@ public class MyReceiver extends BroadcastReceiver {
             context.sendBroadcast(msgIntent);
         }
 
-//
     }
 
 
