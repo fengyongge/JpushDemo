@@ -1,4 +1,4 @@
-package com.zzti.fengyongge.jpushdemo;
+package com.fengyongge.fengyongge.jpushdemo;
 
 import org.junit.Test;
 

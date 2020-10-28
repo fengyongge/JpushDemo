@@ -1,1 +1,3 @@
+include ':basesoruce'
+include ':componentb'
 include ':app', ':myBuildSrc'

@@ -60,6 +60,8 @@ class ComCodeTransform extends Transform {
                 def dest = transformInvocation.outputProvider.getContentLocation(jarName + md5Name,
                         jarInput.contentTypes, jarInput.scopes, Format.JAR)
                 //将输入内容复制到输出
+
+                println("--输入内容--"+dest)
                 FileUtils.copyFile(jarInput.file, dest)
 
             }
@@ -76,6 +78,9 @@ class ComCodeTransform extends Transform {
                                 .replace("/", ".")
                         if (classNameTemp.endsWith(".class")) {
                             String className = classNameTemp.substring(1, classNameTemp.length() - 6)
+
+                            println("----className:"+className)
+
                             if (className.equals(applicationName)) {
                                 injectApplicationCode(applications.get(0), activators, fileName)
                             }
