@@ -1,0 +1,32 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+//发布github
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.fengyongge'
+
+
+dependencies {
+    implementation gradleApi() //gradle sdk
+    implementation localGroovy() //groovy sdk
+    implementation 'com.android.tools.build:gradle:4.1.0'
+    implementation 'org.javassist:javassist:3.22.0-GA'
+}
+
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+//发布到本地
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri('../repo')) //仓库的路径，此处是项目根目录下的 repo 的文件夹
+        pom.groupId = 'com.fengyongge.plugin'  //groupId ，自行定义，一般是包名
+        pom.artifactId = 'component' //artifactId ，自行定义
+        pom.version = '1.0.0' //version 版本号
+    }
+}
+
