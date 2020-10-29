@@ -1,7 +1,8 @@
 package com.fengyongge.plugin
 
+import com.fengyongge.plugin.exten.ComExtension
 import org.gradle.api.Plugin
-import org.gradle.plugins.ide.eclipse.model.Project
+import org.gradle.api.Project
 
 class ComBuild implements Plugin<Project> {
 
@@ -55,12 +56,8 @@ class ComBuild implements Plugin<Project> {
                     }
                 }
             }
-            System.out.println("fyg----010101"+assembleTask.isAssemble+"---"+compilemodule)
             System.out.println("apply plugin is " + 'com.android.application')
-            System.out.println("fyg----00"+assembleTask.isAssemble+"---"+compilemodule)
-
             if (assembleTask.isAssemble && module.equals(compilemodule)) {
-                System.out.println("fyg----111"+assembleTask.isAssemble+"---"+compilemodule)
                 compileComponents(assembleTask, project)
                 project.android.registerTransform(new ComCodeTransform(project))
             }

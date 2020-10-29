@@ -1,3 +1,1 @@
-include ':basesoruce'
-include ':componentb'
-include ':app', ':myBuildSrc'
+include ':app','component-plugin',':componentb',':basesoruce'
