@@ -1,6 +1,5 @@
 //apply plugin : 'com.android.application'
 apply plugin : 'com.fengyongge.plugin'
-//apply plugin: 'com.dd.comgradle'
 
 
 

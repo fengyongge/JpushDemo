@@ -4,7 +4,7 @@
 
     <application>
 
-        <activity android:name="com.fengyongge.componentb.MainActivity">
+        <activity android:name="com.fengyongge.componentb.HomeNewActivity">
         </activity>
     </application>
 

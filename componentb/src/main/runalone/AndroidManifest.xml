@@ -6,13 +6,19 @@
         android:name="com.fengyongge.componentb.runalone.application.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/componentb_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="com.fengyongge.componentb.HomeNewActivity">
 
+            <intent-filter>
 
-        <activity android:name="com.fengyongge.componentb.MainActivity">
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+
+            </intent-filter>
+
         </activity>
     </application>
 

@@ -1,6 +1,5 @@
 //apply plugin: 'com.android.application'
 apply plugin : 'com.fengyongge.plugin'
-//apply plugin: 'com.dd.comgradle'
 
 
 android {
@@ -8,7 +7,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-//        applicationId "com.zzti.componentb"
+//        applicationId "com.fengyongge.componentb"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -37,18 +36,12 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    resourcePrefix "componentb_"
+
 }
 
 dependencies {
-
-//    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-//    implementation 'androidx.appcompat:appcompat:1.2.0'
-//    compile fileTree(include: ['*.jar'], dir: 'libs')
-//    androidTestCompile('androidx.test.espresso:espresso-core:3.1.0', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
-//
-//    api project(':basesoruce')
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.appcompat:appcompat:1.2.0'

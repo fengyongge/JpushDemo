@@ -16,7 +16,6 @@ buildscript {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'  // 添加本行，这个版本与gradle版本有关
 
         classpath 'com.fengyongge.plugin:comgradle:1.0.0'
-//        classpath 'com.luojilab.ddcomponent:build-gradle:1.2.0'
 
     }
 }
@@ -39,3 +38,5 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
