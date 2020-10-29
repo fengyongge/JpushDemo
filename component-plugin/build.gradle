@@ -1,9 +1,31 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
-////发布github
-//apply plugin: 'com.github.dcendents.android-maven'
-//group='com.github.fengyongge'
+
+
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9.2'
+    }
+}
+
+
+publish {
+    userOrg = 'fengyongge'
+    groupId = 'com.fengyongge.sqbjcomponent'
+    artifactId = 'android-gradle-plugin'
+    publishVersion = '1.1.0'
+    desc = 'android gradle plugin be used to component?'
+    website = 'https://github.com/fengyongge/android-gradle-plugin-component'
+}
+
+
+//
 
 dependencies {
     implementation gradleApi() //gradle sdk
